@@ -16,7 +16,7 @@ import org.eclipse.jdt.core.IType;
 public abstract class AbstractFeatureModel {
 	protected String prefix;
 	protected String name;
-	protected String javadoc;
+	protected String doc;
 	protected IType type;
 	protected ProjectModel projectModel;
 	
@@ -31,8 +31,14 @@ public abstract class AbstractFeatureModel {
 	public String getName() {
 		return name;
 	}
+	public String getDoc() {
+		return doc;
+	}
+	public String getSource() {
+		return source;
+	}
 	public String getJavadoc() {
-		return "<b>" + getFullName() + "<br/></b>" + javadoc + "<br/><br/><b>From file:</b> <i>" + source + "</i>";
+		return "<b>" + getFullName() + "<br/></b>" + doc + "<br/><br/><b>From file:</b> <i>" + source + "</i>";
 	}
 	public IType getType() {
 		return type;
@@ -115,7 +121,7 @@ public abstract class AbstractFeatureModel {
 			this.prefix = prefix;
 		}
 		this.name = type.getElementName();
-		this.javadoc = JavaModelHelper.loadJavadoc(type);
+		this.doc = JavaModelHelper.loadJavadoc(type);
 		this.type = type;
 		
 		inputElement = type.getResource();

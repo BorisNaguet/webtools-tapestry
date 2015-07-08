@@ -41,7 +41,7 @@ public class ComponentModel extends AbstractParameteredFeatureModel{
 			this.prefix = prefix;
 		}
 		this.name = name;
-		this.javadoc = javadoc;
+		this.doc = javadoc;
 		this.source = source;
 		
 		this.subPackage = "";

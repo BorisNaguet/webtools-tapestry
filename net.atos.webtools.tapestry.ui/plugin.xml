@@ -418,4 +418,32 @@
        </module>
     </profile>
  </extension>
+ <extension
+       point="org.eclipse.ui.navigator.viewer">
+    <viewerContentBinding
+          viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+       <includes>
+          <contentExtension
+                pattern="net.atos.webtools.tapestry.ui.*">
+          </contentExtension>
+       </includes>
+    </viewerContentBinding>
+ </extension>
+ <extension
+       point="org.eclipse.ui.navigator.navigatorContent">
+    <navigatorContent
+          contentProvider="net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider"
+          id="net.atos.webtools.tapestry.ui.navigatorContent"
+          labelProvider="net.atos.webtools.tapestry.ui.explorer.TapestryLabelProvider"
+          name="tapestryProject"
+          priority="high">
+       <triggerPoints>
+          <and>
+             <instanceof
+                   value="org.eclipse.core.resources.IProject">
+             </instanceof>
+          </and>
+       </triggerPoints>
+    </navigatorContent>
+ </extension>
 </plugin>
