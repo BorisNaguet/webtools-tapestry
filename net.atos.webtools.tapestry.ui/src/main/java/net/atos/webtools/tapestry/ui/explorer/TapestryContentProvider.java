@@ -9,6 +9,7 @@ import net.atos.webtools.tapestry.core.models.features.AssetModel;
 import net.atos.webtools.tapestry.core.models.features.ComponentModel;
 import net.atos.webtools.tapestry.core.models.features.MixinModel;
 import net.atos.webtools.tapestry.core.models.features.PageModel;
+import net.atos.webtools.tapestry.core.models.features.ServiceModel;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -32,9 +33,10 @@ public class TapestryContentProvider extends BaseWorkbenchContentProvider implem
 					new Property("Name", projectModel.getAppName()),
 					new Property("AppModule", projectModel.getAppModule()),
 					new Property("Package", projectModel.getAppPackage()),
-					new ComponentContainer(projectModel.getComponents()),
+					new ComponentsContainer(projectModel.getComponents()),
 					new PagesContainer(projectModel.getPages()),
-					new MixinContainer(projectModel.getMixins()),
+					new MixinsContainer(projectModel.getMixins()),
+					new ServicesContainer(projectModel.getServices()),
 					new AssetsContainer(projectModel.getAssets())
 			};
 		}
@@ -78,8 +80,8 @@ public class TapestryContentProvider extends BaseWorkbenchContentProvider implem
 		Collection<T> collection;
 	}
 	
-	public class ComponentContainer extends ListContainer<ComponentModel> {
-		ComponentContainer(Collection<ComponentModel> components){
+	public class ComponentsContainer extends ListContainer<ComponentModel> {
+		ComponentsContainer(Collection<ComponentModel> components){
 			this.collection = components;
 		}
 	}
@@ -90,9 +92,15 @@ public class TapestryContentProvider extends BaseWorkbenchContentProvider implem
 		}
 	}
 	
-	public class MixinContainer extends ListContainer<MixinModel> {
-		MixinContainer(Collection<MixinModel> mixins){
+	public class MixinsContainer extends ListContainer<MixinModel> {
+		MixinsContainer(Collection<MixinModel> mixins){
 			this.collection = mixins;
+		}
+	}
+	
+	public class ServicesContainer extends ListContainer<ServiceModel> {
+		ServicesContainer(Collection<ServiceModel> services){
+			this.collection = services;
 		}
 	}
 	

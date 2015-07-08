@@ -8,10 +8,11 @@ import net.atos.webtools.tapestry.core.models.features.MixinModel;
 import net.atos.webtools.tapestry.core.models.features.PageModel;
 import net.atos.webtools.tapestry.ui.TapestryUI;
 import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.AssetsContainer;
-import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.ComponentContainer;
-import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.MixinContainer;
+import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.ComponentsContainer;
+import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.MixinsContainer;
 import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.PagesContainer;
 import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.Property;
+import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.ServicesContainer;
 import net.atos.webtools.tapestry.ui.util.UIConstants;
 
 import org.eclipse.core.resources.IProject;
@@ -44,7 +45,7 @@ public class TapestryLabelProvider extends BaseLabelProvider implements ILabelPr
 		if(element instanceof PageModel) {
 			return templateImage;
 		}
-		if(element instanceof AssetsContainer || element instanceof ComponentContainer || element instanceof MixinContainer || element instanceof PagesContainer) {
+		if(element instanceof AssetsContainer || element instanceof ComponentsContainer || element instanceof MixinsContainer || element instanceof PagesContainer) {
 			return tapestryImage;
 		}
 		return tapestryImage;
@@ -59,17 +60,21 @@ public class TapestryLabelProvider extends BaseLabelProvider implements ILabelPr
 			ProjectModel projectModel = (ProjectModel) element;
 			return "Tapestry (app: " + projectModel.getAppName() + ")";
 		}
-		if(element instanceof ComponentContainer) {
-			ComponentContainer componentContainer = (ComponentContainer) element;
-			return "Components (" + componentContainer.collection.size() + ")";
+		if(element instanceof ComponentsContainer) {
+			ComponentsContainer componentsContainer = (ComponentsContainer) element;
+			return "Components (" + componentsContainer.collection.size() + ")";
 		}
-		if(element instanceof MixinContainer) {
-			MixinContainer mixinContainer = (MixinContainer) element;
-			return "Mixins (" + mixinContainer.collection.size() + ")";
+		if(element instanceof MixinsContainer) {
+			MixinsContainer mixinsContainer = (MixinsContainer) element;
+			return "Mixins (" + mixinsContainer.collection.size() + ")";
 		}
 		if(element instanceof PagesContainer) {
 			PagesContainer pagesContainer = (PagesContainer) element;
 			return "Templates (" + pagesContainer.collection.size() + ")";
+		}
+		if(element instanceof ServicesContainer) {
+			ServicesContainer servicesContainer = (ServicesContainer) element;
+			return "Services (" + servicesContainer.collection.size() + ")";
 		}
 		if(element instanceof AssetsContainer) {
 			AssetsContainer assetsContainer = (AssetsContainer) element;
