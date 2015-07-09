@@ -81,8 +81,8 @@
 	</modules>
 	
 	<properties>
-		<platform-version-name>kepler</platform-version-name>
-		<platform-tag>e43x</platform-tag>
+		<platform-version-name>luna</platform-version-name>
+		<platform-tag>e44x</platform-tag>
 		<release-type>SNAPSHOT</release-type>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<tycho-version>0.23.0</tycho-version>
