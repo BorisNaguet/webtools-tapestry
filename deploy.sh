@@ -5,10 +5,13 @@ set -e # exit with nonzero exit code if anything fails
 rm -rf p2Repo || exit 0;
 mkdir p2Repo;
 
-#copy content
-cp -rf ./webtools-tapestry-repository/target/repository/* ./p2Repo/
+pwd
+ls
 
-# go to the out directory and create a *new* Git repo
+#copy content
+cp -r ./webtools-tapestry-repository/target/repository/. ./p2Repo/
+
+# go to the p2Repo directory and create a *new* Git repo
 cd p2Repo
 ls
 git init
