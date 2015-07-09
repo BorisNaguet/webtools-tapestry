@@ -77,9 +77,7 @@ public class FeatureFinder extends WorkspaceJob {
 	private static final String GET_ROOT_PACKAGE = "getRootPackage";
 	private static final String GET_PATH_PREFIX = "getPathPrefix";
 	private static final String CONTRIBUTE_COMPONENT_CLASS_RESOLVER = "contributeComponentClassResolver";
-	private static final String FILE_PATTERN = "((.*?)+(\\.(?i)(java|tml|properties|xml|manifest|class))$)";
 	private static final String[] FILE_EXTENSIONS = {"java", "tml", "properties", "xml", "manifest", "class"};
-	private static final Pattern pattern = Pattern.compile(FILE_PATTERN);
 
 	private ProjectModel projectModel;
 	private IResourceDelta resourceDeltaLimitation = null;
@@ -325,13 +323,13 @@ public class FeatureFinder extends WorkspaceJob {
 			} else if (IFile.class.isInstance(asset)) {
 				IFile iFile = (IFile) asset;
 				String fileExtension = iFile.getFileExtension();
-				if (fileExtension != null && arrayContains(FILE_EXTENSIONS, fileExtension)) {
+				if (fileExtension != null && ! arrayContains(FILE_EXTENSIONS, fileExtension)) {
 					projectModel.addAssetsFromClassPath((new AssetModel(iFile.getName(), Util.relativePath(
 							iFile.getProjectRelativePath(), iPackageFragmentRoot.getPath().segmentCount() - 1))));
 				}
 			}
 		} catch (CoreException e) {
-
+			//TODO: and then?
 		}
 	}
 
@@ -372,14 +370,14 @@ public class FeatureFinder extends WorkspaceJob {
 				}
 			} else if (IFile.class.isInstance(asset)) {
 				IFile iFile = (IFile) asset;
-				Matcher matcher = pattern.matcher(iFile.getName());
-				if (iFile.getFileExtension() != null && !matcher.matches()) {
+				String fileExtension = iFile.getFileExtension();
+				if (fileExtension != null && ! arrayContains(FILE_EXTENSIONS, fileExtension)) {
 					projectModel.addAsset((new AssetModel(iFile.getName(), Util.relativePath(
 							iFile.getProjectRelativePath(), iPackageFragmentRoot.getPath().segmentCount() - 1))));
 				}
 			}
 		} catch (CoreException e) {
-
+			//TODO: log?
 		}
 	}
 
