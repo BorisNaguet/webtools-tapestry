@@ -6,9 +6,7 @@ jdk:
 branches:
   only:
     - master
-    
-script:
-  - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
 after_success:
   - bash ./deploy.sh   
 
