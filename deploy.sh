@@ -3,13 +3,15 @@ set -e # exit with nonzero exit code if anything fails
 
 # clear and re-create the out directory
 rm -rf p2Repo || exit 0;
-mkdir p2Repo;
 
 pwd
 ls
+ls webtools-tapestry-repository
+ls webtools-tapestry-repository/target
+ls webtools-tapestry-repository/target/repository
 
 #copy content
-cp -r ./webtools-tapestry-repository/target/repository/. ./p2Repo/
+cp -a webtools-tapestry-repository/target/repository/. p2Repo/
 
 # go to the p2Repo directory and create a *new* Git repo
 cd p2Repo
