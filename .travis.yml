@@ -7,7 +7,7 @@ branches:
   only:
     - master
 
-script: 
+script: mvn validate
 
 after_success:
   - bash ./deploy.sh   
