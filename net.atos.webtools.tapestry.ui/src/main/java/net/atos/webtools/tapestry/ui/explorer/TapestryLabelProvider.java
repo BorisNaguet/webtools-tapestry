@@ -84,11 +84,11 @@ public class TapestryLabelProvider extends BaseLabelProvider implements ILabelPr
 		}
 		if(element instanceof AssetsContainer) {
 			AssetsContainer assets = (AssetsContainer) element;
-			return "asset: (" + assets.collection.size() + ")";
+			return "context: (" + assets.collection.size() + ")";
 		}
 		if(element instanceof ClasspathAssetsContainer) {
 			ClasspathAssetsContainer classpathAssets = (ClasspathAssetsContainer) element;
-			return "context: (" + classpathAssets.collection.size() + ")";
+			return "asset: (" + classpathAssets.collection.size() + ")";
 		}
 		if(element instanceof AbstractFeatureModel) {
 			AbstractFeatureModel model = (AbstractFeatureModel) element;
