@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/BorisNaguet/webtools-tapestry.svg?branch=master)](https://travis-ci.org/BorisNaguet/webtools-tapestry)
+
 webtools-tapestry
 =================
 
