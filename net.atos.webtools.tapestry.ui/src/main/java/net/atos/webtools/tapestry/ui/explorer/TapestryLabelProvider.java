@@ -7,7 +7,9 @@ import net.atos.webtools.tapestry.core.models.features.ComponentModel;
 import net.atos.webtools.tapestry.core.models.features.MixinModel;
 import net.atos.webtools.tapestry.core.models.features.PageModel;
 import net.atos.webtools.tapestry.ui.TapestryUI;
+import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.Assets;
 import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.AssetsContainer;
+import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.ClasspathAssetsContainer;
 import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.ComponentsContainer;
 import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.MixinsContainer;
 import net.atos.webtools.tapestry.ui.explorer.TapestryContentProvider.PagesContainer;
@@ -76,19 +78,27 @@ public class TapestryLabelProvider extends BaseLabelProvider implements ILabelPr
 			ServicesContainer servicesContainer = (ServicesContainer) element;
 			return "Services (" + servicesContainer.collection.size() + ")";
 		}
-		if(element instanceof AssetsContainer) {
-			AssetsContainer assetsContainer = (AssetsContainer) element;
-			return "Assets (" + assetsContainer.collection.size() + ")";
+		if(element instanceof Assets) {
+			Assets assets = (Assets) element;
+			return "Assets (" + (assets.assets.collection.size() + assets.classpathAssets.collection.size()) + ")";
 		}
-		else if(element instanceof AbstractFeatureModel) {
+		if(element instanceof AssetsContainer) {
+			AssetsContainer assets = (AssetsContainer) element;
+			return "asset: (" + assets.collection.size() + ")";
+		}
+		if(element instanceof ClasspathAssetsContainer) {
+			ClasspathAssetsContainer classpathAssets = (ClasspathAssetsContainer) element;
+			return "context: (" + classpathAssets.collection.size() + ")";
+		}
+		if(element instanceof AbstractFeatureModel) {
 			AbstractFeatureModel model = (AbstractFeatureModel) element;
 			return model.getFullName();
 		}
-		else if(element instanceof AssetModel) {
+		if(element instanceof AssetModel) {
 			AssetModel assetModel = (AssetModel) element;
 			return assetModel.getName() + " : " + assetModel.getPath();
 		}
-		else if(element instanceof Property) {
+		if(element instanceof Property) {
 			Property property = (Property) element;
 			return property.name + " : " + property.value;
 		}

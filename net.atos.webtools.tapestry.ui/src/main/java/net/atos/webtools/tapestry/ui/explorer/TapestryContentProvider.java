@@ -27,7 +27,7 @@ public class TapestryContentProvider extends BaseWorkbenchContentProvider implem
 		if (parentElement instanceof IProject) {
 			return getElements(parentElement);
 		}
-		else if (parentElement instanceof ProjectModel) {
+		if (parentElement instanceof ProjectModel) {
 			ProjectModel projectModel = (ProjectModel) parentElement;
 			return new Object[]{
 					new Property("Name", projectModel.getAppName()),
@@ -37,13 +37,20 @@ public class TapestryContentProvider extends BaseWorkbenchContentProvider implem
 					new PagesContainer(projectModel.getPages()),
 					new MixinsContainer(projectModel.getMixins()),
 					new ServicesContainer(projectModel.getServices()),
-					new AssetsContainer(projectModel.getAssets())
+					new Assets(projectModel.getAssets(), projectModel.getAssetsFromClassPath()),
 			};
 		}
-		else if (parentElement instanceof ListContainer) {
+		if(parentElement instanceof Assets) {
+			Assets assets = (Assets) parentElement;
+			return new Object[]{
+				assets.assets,
+				assets.classpathAssets
+			};
+		}
+		if (parentElement instanceof ListContainer) {
 			return ((ListContainer<?>) parentElement).collection.toArray();
 		}
-		else if(parentElement instanceof AbstractFeatureModel) {
+		if(parentElement instanceof AbstractFeatureModel) {
 			AbstractFeatureModel abstractFeatureModel = (AbstractFeatureModel) parentElement;
 			return new Property[]{
 				new Property("prefix", abstractFeatureModel.getPrefix()),
@@ -107,6 +114,22 @@ public class TapestryContentProvider extends BaseWorkbenchContentProvider implem
 	public class AssetsContainer extends ListContainer<AssetModel> {
 		AssetsContainer(Collection<AssetModel> assets){
 			this.collection = assets;
+		}
+	}
+	
+	public class ClasspathAssetsContainer extends ListContainer<AssetModel> {
+		ClasspathAssetsContainer(Collection<AssetModel> classpathAssets){
+			this.collection = classpathAssets;
+		}
+	}
+	
+	public class Assets { 
+		AssetsContainer assets;
+		ClasspathAssetsContainer classpathAssets;
+		
+		Assets(Collection<AssetModel> assets, Collection<AssetModel> classpathAssets){
+			this.assets = new AssetsContainer(assets);
+			this.classpathAssets = new ClasspathAssetsContainer(classpathAssets);
 		}
 	}
 }
